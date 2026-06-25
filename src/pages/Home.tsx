@@ -31,11 +31,6 @@ export default function Home() {
     { icon: Star, label: t('Premium Quality', '優質品質'), desc: t('Curated & quality-tested', '精選及品質測試') },
   ];
 
-  const heroImages = [
-    'https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg?auto=compress&cs=tinysrgb&w=1280',
-    'https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=1280',
-  ];
-
   const collectionImages = [
     'https://images.pexels.com/photos/5632400/pexels-photo-5632400.jpeg?auto=compress&cs=tinysrgb&w=800',
     'https://images.pexels.com/photos/5632401/pexels-photo-5632401.jpeg?auto=compress&cs=tinysrgb&w=800',
@@ -46,31 +41,31 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[80vh] min-h-[560px] flex items-center overflow-hidden">
+      <section className="relative h-[80vh] min-h-[560px] flex items-center overflow-hidden bg-[#c8b99a]">
         <div className="absolute inset-0">
           <img
-            src="https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg?auto=compress&cs=tinysrgb&w=1280"
-            alt="Hero"
-            className="w-full h-full object-cover"
+            src="/image copy copy.png"
+            alt="MODAMODA Hero"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/80 via-neutral-900/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#8a7a5a]/70 via-[#8a7a5a]/20 to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 w-full">
-          <div className="max-w-xl">
-            <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-medium rounded-full mb-4 tracking-wider uppercase">
-              {t('New Collection 2025', '2025全新系列')}
+          <div className="max-w-lg">
+            <span className="inline-block px-3 py-1 bg-black/20 backdrop-blur-sm border border-white/30 text-white text-xs font-medium rounded-full mb-4 tracking-wider uppercase">
+              {t('ALL-IN-ONE Gray Hair Care', '全效灰髮護理')}
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-              {heroTitle || t('Crafted for the Modern Individual', '為現代人而造')}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 drop-shadow-lg">
+              {heroTitle || t('MODAMODA', 'MODAMODA')}
             </h1>
-            <p className="text-lg text-white/80 mb-8 leading-relaxed">
-              {heroSubtitle || t('Discover our curated collection of premium products', '探索我們精選的優質產品系列')}
+            <p className="text-lg text-white/90 mb-8 leading-relaxed drop-shadow">
+              {heroSubtitle || t('Upgraded formula — PH 5.5 mild acidity for healthy, vibrant hair', '升級配方 — PH 5.5弱酸性，呵護秀髮健康亮澤')}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link to="/products" className="px-6 py-3 bg-white text-neutral-900 font-semibold rounded-full hover:bg-neutral-100 transition-colors flex items-center gap-2">
+              <Link to="/products" className="px-6 py-3 bg-neutral-900 text-white font-semibold rounded-full hover:bg-neutral-800 transition-colors flex items-center gap-2">
                 {t('Shop Now', '立即購物')} <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link to="/collections" className="px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-full hover:bg-white/20 transition-colors">
+              <Link to="/collections" className="px-6 py-3 bg-white/15 backdrop-blur-sm border border-white/40 text-white font-semibold rounded-full hover:bg-white/25 transition-colors">
                 {t('View Collections', '查看系列')}
               </Link>
             </div>
