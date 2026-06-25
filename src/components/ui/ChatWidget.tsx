@@ -29,7 +29,7 @@ export default function ChatWidget() {
     loadMessages();
     const channel = supabase
       .channel(`chat_${sessionId}`)
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'MT_chat_messages', filter: `session_id=eq.${sessionId}` },
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mt_chat_messages', filter: `session_id=eq.${sessionId}` },
         payload => setMessages(prev => [...prev, payload.new as ChatMessage])
       )
       .subscribe();
@@ -42,7 +42,7 @@ export default function ChatWidget() {
 
   async function loadMessages() {
     const { data } = await supabase
-      .from('MT_chat_messages')
+      .from('mt_chat_messages')
       .select('*')
       .eq('session_id', sessionId)
       .order('created_at', { ascending: true });
@@ -54,7 +54,7 @@ export default function ChatWidget() {
     e.preventDefault();
     if (!visitorName.trim()) return;
     setStarted(true);
-    await supabase.from('MT_chat_messages').insert({
+    await supabase.from('mt_chat_messages').insert({
       session_id: sessionId,
       visitor_name: visitorName,
       sender: 'admin',
@@ -68,7 +68,7 @@ export default function ChatWidget() {
     setSending(true);
     const msg = input.trim();
     setInput('');
-    await supabase.from('MT_chat_messages').insert({
+    await supabase.from('mt_chat_messages').insert({
       session_id: sessionId,
       visitor_name: visitorName || 'Visitor',
       sender: 'user',

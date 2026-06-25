@@ -19,7 +19,7 @@ export default function AdminBlog() {
   useEffect(() => { load(); }, []);
 
   async function load() {
-    const { data } = await supabase.from('MT_blog_posts').select('*').order('created_at', { ascending: false });
+    const { data } = await supabase.from('mt_blog_posts').select('*').order('created_at', { ascending: false });
     setPosts(data ?? []);
     setLoading(false);
   }
@@ -36,8 +36,8 @@ export default function AdminBlog() {
   async function handleSave() {
     setSaving(true);
     const payload = { title_en: form.title_en, title_tc: form.title_tc, slug: form.slug || toSlug(form.title_en), excerpt_en: form.excerpt_en, excerpt_tc: form.excerpt_tc, content_en: form.content_en, content_tc: form.content_tc, cover_image: form.cover_image, author: form.author, tags: form.tags.split(',').map(s => s.trim()).filter(Boolean), is_published: form.is_published, published_at: form.is_published ? new Date().toISOString() : null, meta_title_en: form.meta_title_en, meta_title_tc: form.meta_title_tc, meta_description_en: form.meta_description_en, meta_description_tc: form.meta_description_tc, updated_at: new Date().toISOString() };
-    if (editing) await supabase.from('MT_blog_posts').update(payload).eq('id', editing.id);
-    else await supabase.from('MT_blog_posts').insert(payload);
+    if (editing) await supabase.from('mt_blog_posts').update(payload).eq('id', editing.id);
+    else await supabase.from('mt_blog_posts').insert(payload);
     setSaving(false);
     setModalOpen(false);
     load();
@@ -88,7 +88,7 @@ export default function AdminBlog() {
                     <div className="flex justify-end gap-1">
                       {p.is_published && <a href={`/blog/${p.slug}`} target="_blank" rel="noreferrer" className="p-1.5 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded"><Eye className="w-3.5 h-3.5" /></a>}
                       <button onClick={() => openEdit(p)} className="p-1.5 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded"><Edit2 className="w-3.5 h-3.5" /></button>
-                      <button onClick={async () => { if (!confirm('Delete?')) return; await supabase.from('MT_blog_posts').delete().eq('id', p.id); load(); }} className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 rounded"><Trash2 className="w-3.5 h-3.5" /></button>
+                      <button onClick={async () => { if (!confirm('Delete?')) return; await supabase.from('mt_blog_posts').delete().eq('id', p.id); load(); }} className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 rounded"><Trash2 className="w-3.5 h-3.5" /></button>
                     </div>
                   </td>
                 </tr>

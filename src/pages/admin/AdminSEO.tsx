@@ -16,7 +16,7 @@ export default function AdminSEO() {
   useEffect(() => { load(); }, []);
 
   async function load() {
-    const { data } = await supabase.from('MT_seo_settings').select('*');
+    const { data } = await supabase.from('mt_seo_settings').select('*');
     const map: Record<string, SeoSetting> = {};
     (data ?? []).forEach(s => { map[s.page_key] = s; });
     setSettings(map);
@@ -38,9 +38,9 @@ export default function AdminSEO() {
     const payload = { page_key: selectedKey, meta_title_en: form.meta_title_en ?? '', meta_title_tc: form.meta_title_tc ?? '', meta_description_en: form.meta_description_en ?? '', meta_description_tc: form.meta_description_tc ?? '', og_image: form.og_image ?? '', keywords_en: form.keywords_en ?? '', keywords_tc: form.keywords_tc ?? '', canonical_url: form.canonical_url ?? '', robots: form.robots ?? 'index,follow', updated_at: new Date().toISOString() };
     const existing = settings[selectedKey];
     if (existing?.id) {
-      await supabase.from('MT_seo_settings').update(payload).eq('id', existing.id);
+      await supabase.from('mt_seo_settings').update(payload).eq('id', existing.id);
     } else {
-      await supabase.from('MT_seo_settings').insert(payload);
+      await supabase.from('mt_seo_settings').insert(payload);
     }
     setSaving(false);
     setSaved(true);

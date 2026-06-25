@@ -14,9 +14,9 @@ export default function Home() {
   const [heroSubtitle, setHeroSubtitle] = useState('');
 
   useEffect(() => {
-    supabase.from('MT_products').select('*, collection:MT_collections(*)').eq('is_active', true).eq('is_featured', true).limit(8).then(({ data }) => setProducts((data as Product[]) ?? []));
-    supabase.from('MT_collections').select('*').eq('is_active', true).order('sort_order').limit(4).then(({ data }) => setCollections(data ?? []));
-    supabase.from('MT_site_settings').select('key, value_en, value_tc').in('key', ['hero_title', 'hero_subtitle']).then(({ data }) => {
+    supabase.from('mt_products').select('*, collection:mt_collections(*)').eq('is_active', true).eq('is_featured', true).limit(8).then(({ data }) => setProducts((data as Product[]) ?? []));
+    supabase.from('mt_collections').select('*').eq('is_active', true).order('sort_order').limit(4).then(({ data }) => setCollections(data ?? []));
+    supabase.from('mt_site_settings').select('key, value_en, value_tc').in('key', ['hero_title', 'hero_subtitle']).then(({ data }) => {
       const map: Record<string, { en: string; tc: string }> = {};
       (data ?? []).forEach(s => { map[s.key] = { en: s.value_en, tc: s.value_tc }; });
       setHeroTitle(lang === 'tc' ? (map.hero_title?.tc || '') : (map.hero_title?.en || ''));

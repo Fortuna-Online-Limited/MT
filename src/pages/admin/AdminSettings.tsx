@@ -26,7 +26,7 @@ export default function AdminSettings() {
   useEffect(() => { load(); }, []);
 
   async function load() {
-    const { data } = await supabase.from('MT_site_settings').select('*');
+    const { data } = await supabase.from('mt_site_settings').select('*');
     const map: Record<string, SiteSetting> = {};
     const fMap: Record<string, { en: string; tc: string }> = {};
     (data ?? []).forEach(s => {
@@ -48,9 +48,9 @@ export default function AdminSettings() {
       const values = form[key];
       if (!values) continue;
       if (settings[key]) {
-        await supabase.from('MT_site_settings').update({ value_en: values.en, value_tc: values.tc, updated_at: new Date().toISOString() }).eq('key', key);
+        await supabase.from('mt_site_settings').update({ value_en: values.en, value_tc: values.tc, updated_at: new Date().toISOString() }).eq('key', key);
       } else {
-        await supabase.from('MT_site_settings').insert({ key, value_en: values.en, value_tc: values.tc });
+        await supabase.from('mt_site_settings').insert({ key, value_en: values.en, value_tc: values.tc });
       }
     }
     setSaving(false);

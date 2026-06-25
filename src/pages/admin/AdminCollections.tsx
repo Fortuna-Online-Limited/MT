@@ -18,7 +18,7 @@ export default function AdminCollections() {
   useEffect(() => { load(); }, []);
 
   async function load() {
-    const { data } = await supabase.from('MT_collections').select('*').order('sort_order');
+    const { data } = await supabase.from('mt_collections').select('*').order('sort_order');
     setCollections(data ?? []);
     setLoading(false);
   }
@@ -34,8 +34,8 @@ export default function AdminCollections() {
   async function handleSave() {
     setSaving(true);
     const payload = { name_en: form.name_en, name_tc: form.name_tc, slug: form.slug || toSlug(form.name_en), description_en: form.description_en, description_tc: form.description_tc, image: form.image, sort_order: parseInt(form.sort_order) || 0, is_active: form.is_active, meta_title_en: form.meta_title_en, meta_title_tc: form.meta_title_tc, meta_description_en: form.meta_description_en, meta_description_tc: form.meta_description_tc, updated_at: new Date().toISOString() };
-    if (editing) await supabase.from('MT_collections').update(payload).eq('id', editing.id);
-    else await supabase.from('MT_collections').insert(payload);
+    if (editing) await supabase.from('mt_collections').update(payload).eq('id', editing.id);
+    else await supabase.from('mt_collections').insert(payload);
     setSaving(false);
     setModalOpen(false);
     load();
@@ -43,7 +43,7 @@ export default function AdminCollections() {
 
   async function handleDelete(id: string) {
     if (!confirm('Delete this collection?')) return;
-    await supabase.from('MT_collections').delete().eq('id', id);
+    await supabase.from('mt_collections').delete().eq('id', id);
     load();
   }
 

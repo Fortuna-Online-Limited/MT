@@ -9,7 +9,7 @@ export function useCurrency() {
 
   useEffect(() => {
     if (cacheLoaded) { setSymbol(cachedSymbol); return; }
-    supabase.from('MT_site_settings').select('value').eq('key', 'currency').maybeSingle().then(({ data }) => {
+    supabase.from('mt_site_settings').select('value').eq('key', 'currency').maybeSingle().then(({ data }) => {
       const s = (data?.value as { symbol?: string })?.symbol ?? 'MOP$';
       cachedSymbol = s;
       cacheLoaded = true;

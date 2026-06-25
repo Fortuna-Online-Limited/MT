@@ -36,7 +36,7 @@ export default function Checkout() {
     setLoading(true);
     setError('');
 
-    const { data: order, error: oErr } = await supabase.from('MT_orders').insert({
+    const { data: order, error: oErr } = await supabase.from('mt_orders').insert({
       user_id: user?.id ?? null,
       email: form.email,
       first_name: form.firstName,
@@ -64,7 +64,7 @@ export default function Checkout() {
       subtotal: (item.product?.price ?? 0) * item.quantity,
     }));
 
-    await supabase.from('MT_order_items').insert(orderItems);
+    await supabase.from('mt_order_items').insert(orderItems);
     await clearCart();
     setOrderNumber(order.order_number);
     setSuccess(true);

@@ -14,14 +14,14 @@ export default function AdminMedia() {
   useEffect(() => { load(); }, []);
 
   async function load() {
-    const { data } = await supabase.from('MT_media').select('*').order('created_at', { ascending: false });
+    const { data } = await supabase.from('mt_media').select('*').order('created_at', { ascending: false });
     setMedia(data ?? []);
     setLoading(false);
   }
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
-    await supabase.from('MT_media').insert({ url: form.url, filename: form.filename || form.url.split('/').pop(), type: form.type, alt_en: form.alt_en, alt_tc: form.alt_tc });
+    await supabase.from('mt_media').insert({ url: form.url, filename: form.filename || form.url.split('/').pop(), type: form.type, alt_en: form.alt_en, alt_tc: form.alt_tc });
     setForm({ url: '', filename: '', type: 'image', alt_en: '', alt_tc: '' });
     setShowAdd(false);
     load();
@@ -99,7 +99,7 @@ export default function AdminMedia() {
               )}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-2">
                 <p className="text-white text-xs text-center truncate w-full">{file.filename}</p>
-                <button onClick={async () => { if (!confirm('Delete?')) return; await supabase.from('MT_media').delete().eq('id', file.id); load(); }} className="p-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                <button onClick={async () => { if (!confirm('Delete?')) return; await supabase.from('mt_media').delete().eq('id', file.id); load(); }} className="p-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600">
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </div>

@@ -28,8 +28,8 @@ export default function AdminProducts() {
 
   async function loadData() {
     const [{ data: prods }, { data: cols }] = await Promise.all([
-      supabase.from('MT_products').select('*, collection:MT_collections(*)').order('created_at', { ascending: false }),
-      supabase.from('MT_collections').select('*').order('sort_order'),
+      supabase.from('mt_products').select('*, collection:mt_collections(*)').order('created_at', { ascending: false }),
+      supabase.from('mt_collections').select('*').order('sort_order'),
     ]);
     setProducts((prods as Product[]) ?? []);
     setCollections(cols ?? []);
@@ -79,9 +79,9 @@ export default function AdminProducts() {
       updated_at: new Date().toISOString(),
     };
     if (editing) {
-      await supabase.from('MT_products').update(payload).eq('id', editing.id);
+      await supabase.from('mt_products').update(payload).eq('id', editing.id);
     } else {
-      await supabase.from('MT_products').insert(payload);
+      await supabase.from('mt_products').insert(payload);
     }
     setSaving(false);
     setModalOpen(false);
@@ -90,7 +90,7 @@ export default function AdminProducts() {
 
   async function handleDelete(id: string) {
     if (!confirm('Delete this product?')) return;
-    await supabase.from('MT_products').delete().eq('id', id);
+    await supabase.from('mt_products').delete().eq('id', id);
     loadData();
   }
 

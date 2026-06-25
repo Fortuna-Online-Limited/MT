@@ -17,7 +17,7 @@ export default function AdminPages() {
   useEffect(() => { load(); }, []);
 
   async function load() {
-    const { data } = await supabase.from('MT_pages').select('*').order('slug');
+    const { data } = await supabase.from('mt_pages').select('*').order('slug');
     setPages(data ?? []);
     setLoading(false);
     if (data && data.length > 0) {
@@ -38,7 +38,7 @@ export default function AdminPages() {
     if (!selected) return;
     setSaving(true);
     const payload = { title_en: form.title_en, title_tc: form.title_tc, content_en: form.content_en, content_tc: form.content_tc, meta_title_en: form.meta_title_en ?? '', meta_title_tc: form.meta_title_tc ?? '', meta_description_en: form.meta_description_en ?? '', meta_description_tc: form.meta_description_tc ?? '', updated_at: new Date().toISOString() };
-    await supabase.from('MT_pages').update(payload).eq('id', selected.id);
+    await supabase.from('mt_pages').update(payload).eq('id', selected.id);
     setSaving(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);

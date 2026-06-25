@@ -103,7 +103,7 @@ export default function AdminImport() {
   ];
 
   async function loadCollections() {
-    const { data } = await supabase.from('MT_collections').select('*').order('sort_order');
+    const { data } = await supabase.from('mt_collections').select('*').order('sort_order');
     setCollections(data ?? []);
   }
 
@@ -200,7 +200,7 @@ export default function AdminImport() {
       const colId = row.collection_name ? (collectionMap[row.collection_name.toLowerCase()] ?? null) : null;
       const slug = toSlug(row.name_en) + '-' + Math.random().toString(36).slice(2, 6);
 
-      const { error } = await supabase.from('MT_products').insert({
+      const { error } = await supabase.from('mt_products').insert({
         name_en: row.name_en,
         name_tc: row.name_tc || row.name_en,
         slug,

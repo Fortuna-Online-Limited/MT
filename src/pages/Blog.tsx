@@ -12,7 +12,7 @@ export default function Blog() {
   const [tag, setTag] = useState('');
 
   useEffect(() => {
-    let query = supabase.from('MT_blog_posts').select('*').eq('is_published', true).order('published_at', { ascending: false });
+    let query = supabase.from('mt_blog_posts').select('*').eq('is_published', true).order('published_at', { ascending: false });
     query.then(({ data }) => { setPosts(data ?? []); setLoading(false); });
   }, []);
 

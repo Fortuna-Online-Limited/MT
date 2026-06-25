@@ -12,7 +12,7 @@ export default function Policy() {
 
   useEffect(() => {
     if (!slug) return;
-    supabase.from('MT_pages').select('*').eq('slug', slug).maybeSingle().then(({ data }) => {
+    supabase.from('mt_pages').select('*').eq('slug', slug).maybeSingle().then(({ data }) => {
       setPage(data);
       setLoading(false);
     });

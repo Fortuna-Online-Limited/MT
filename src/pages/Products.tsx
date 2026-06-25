@@ -20,14 +20,14 @@ export default function Products() {
   const maxPrice = parseInt(searchParams.get('max_price') ?? '99999');
 
   useEffect(() => {
-    supabase.from('MT_collections').select('*').eq('is_active', true).order('sort_order').then(({ data }) => setCollections(data ?? []));
+    supabase.from('mt_collections').select('*').eq('is_active', true).order('sort_order').then(({ data }) => setCollections(data ?? []));
   }, []);
 
   useEffect(() => {
     setLoading(true);
     const [col, dir] = sortBy.split(':');
     let query = supabase
-      .from('MT_products')
+      .from('mt_products')
       .select('*, collection:MT_collections(*)')
       .eq('is_active', true)
       .lte('price', maxPrice)

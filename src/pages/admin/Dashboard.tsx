@@ -8,10 +8,10 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     Promise.all([
-      supabase.from('MT_products').select('*', { count: 'exact', head: true }),
-      supabase.from('MT_orders').select('total').eq('payment_status', 'paid'),
-      supabase.from('MT_chat_messages').select('*', { count: 'exact', head: true }).eq('sender', 'user').eq('is_read', false),
-      supabase.from('MT_orders').select('*', { count: 'exact', head: true }),
+      supabase.from('mt_products').select('*', { count: 'exact', head: true }),
+      supabase.from('mt_orders').select('total').eq('payment_status', 'paid'),
+      supabase.from('mt_chat_messages').select('*', { count: 'exact', head: true }).eq('sender', 'user').eq('is_read', false),
+      supabase.from('mt_orders').select('*', { count: 'exact', head: true }),
     ]).then(([prods, ordersData, msgs, orderCount]) => {
       const revenue = (ordersData.data ?? []).reduce((sum, o) => sum + (o.total ?? 0), 0);
       setStats({

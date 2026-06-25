@@ -11,7 +11,7 @@ export default function Collections() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.from('MT_collections').select('*').eq('is_active', true).order('sort_order').then(({ data }) => {
+    supabase.from('mt_collections').select('*').eq('is_active', true).order('sort_order').then(({ data }) => {
       setCollections(data ?? []);
       setLoading(false);
     });

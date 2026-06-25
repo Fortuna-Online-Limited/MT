@@ -14,12 +14,12 @@ export default function BlogPost() {
 
   useEffect(() => {
     if (!slug) return;
-    supabase.from('MT_blog_posts').select('*').eq('slug', slug).eq('is_published', true).maybeSingle().then(({ data }) => {
+    supabase.from('mt_blog_posts').select('*').eq('slug', slug).eq('is_published', true).maybeSingle().then(({ data }) => {
       setPost(data);
       setLoading(false);
       if (data) {
-        supabase.from('MT_blog_posts').select('*').eq('is_published', true).neq('id', data.id).limit(3).then(({ data: rel }) => setRelated(rel ?? []));
-        supabase.from('MT_blog_posts').update({ view_count: (data.view_count ?? 0) + 1 }).eq('id', data.id);
+        supabase.from('mt_blog_posts').select('*').eq('is_published', true).neq('id', data.id).limit(3).then(({ data: rel }) => setRelated(rel ?? []));
+        supabase.from('mt_blog_posts').update({ view_count: (data.view_count ?? 0) + 1 }).eq('id', data.id);
       }
     });
   }, [slug]);

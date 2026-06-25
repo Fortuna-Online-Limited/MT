@@ -13,7 +13,7 @@ export default function FAQ() {
   const [category, setCategory] = useState('');
 
   useEffect(() => {
-    supabase.from('MT_faq_items').select('*').eq('is_active', true).order('sort_order').then(({ data }) => {
+    supabase.from('mt_faq_items').select('*').eq('is_active', true).order('sort_order').then(({ data }) => {
       setItems(data ?? []);
       setLoading(false);
     });

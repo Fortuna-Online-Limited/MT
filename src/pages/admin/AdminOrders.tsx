@@ -15,13 +15,13 @@ export default function AdminOrders() {
   useEffect(() => { load(); }, []);
 
   async function load() {
-    const { data } = await supabase.from('MT_orders').select('*, items:MT_order_items(*)').order('created_at', { ascending: false });
+    const { data } = await supabase.from('mt_orders').select('*, items:mt_order_items(*)').order('created_at', { ascending: false });
     setOrders((data as Order[]) ?? []);
     setLoading(false);
   }
 
   async function updateStatus(id: string, status: string) {
-    await supabase.from('MT_orders').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
+    await supabase.from('mt_orders').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
     load();
     if (selected?.id === id) setSelected(prev => prev ? { ...prev, status: status as Order['status'] } : null);
   }

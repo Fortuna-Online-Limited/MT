@@ -14,10 +14,10 @@ export default function CollectionDetail() {
 
   useEffect(() => {
     if (!slug) return;
-    supabase.from('MT_collections').select('*').eq('slug', slug).maybeSingle().then(({ data }) => {
+    supabase.from('mt_collections').select('*').eq('slug', slug).maybeSingle().then(({ data }) => {
       setCollection(data);
       if (data) {
-        supabase.from('MT_products').select('*, collection:MT_collections(*)').eq('collection_id', data.id).eq('is_active', true).then(({ data: prods }) => {
+        supabase.from('mt_products').select('*, collection:mt_collections(*)').eq('collection_id', data.id).eq('is_active', true).then(({ data: prods }) => {
           setProducts((prods as Product[]) ?? []);
           setLoading(false);
         });

@@ -17,7 +17,7 @@ export default function AdminFAQ() {
   useEffect(() => { load(); }, []);
 
   async function load() {
-    const { data } = await supabase.from('MT_faq_items').select('*').order('sort_order');
+    const { data } = await supabase.from('mt_faq_items').select('*').order('sort_order');
     setItems(data ?? []);
     setLoading(false);
   }
@@ -33,8 +33,8 @@ export default function AdminFAQ() {
   async function handleSave() {
     setSaving(true);
     const payload = { question_en: form.question_en, question_tc: form.question_tc, answer_en: form.answer_en, answer_tc: form.answer_tc, category: form.category, sort_order: parseInt(form.sort_order) || 0, is_active: form.is_active, updated_at: new Date().toISOString() };
-    if (editing) await supabase.from('MT_faq_items').update(payload).eq('id', editing.id);
-    else await supabase.from('MT_faq_items').insert(payload);
+    if (editing) await supabase.from('mt_faq_items').update(payload).eq('id', editing.id);
+    else await supabase.from('mt_faq_items').insert(payload);
     setSaving(false);
     setModalOpen(false);
     load();
@@ -80,7 +80,7 @@ export default function AdminFAQ() {
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-1">
                       <button onClick={() => openEdit(item)} className="p-1.5 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded"><Edit2 className="w-3.5 h-3.5" /></button>
-                      <button onClick={async () => { if (!confirm('Delete?')) return; await supabase.from('MT_faq_items').delete().eq('id', item.id); load(); }} className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 rounded"><Trash2 className="w-3.5 h-3.5" /></button>
+                      <button onClick={async () => { if (!confirm('Delete?')) return; await supabase.from('mt_faq_items').delete().eq('id', item.id); load(); }} className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 rounded"><Trash2 className="w-3.5 h-3.5" /></button>
                     </div>
                   </td>
                 </tr>

@@ -8,7 +8,7 @@ export default function About() {
   const [page, setPage] = useState<Page | null>(null);
 
   useEffect(() => {
-    supabase.from('MT_pages').select('*').eq('slug', 'about').maybeSingle().then(({ data }) => setPage(data));
+    supabase.from('mt_pages').select('*').eq('slug', 'about').maybeSingle().then(({ data }) => setPage(data));
   }, []);
 
   const title = page ? (lang === 'tc' ? page.title_tc : page.title_en) : t('About Us', '關於我們');

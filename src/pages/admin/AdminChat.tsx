@@ -20,7 +20,7 @@ export default function AdminChat() {
     loadMessages(selectedSession);
     const channel = supabase
       .channel(`admin_chat_${selectedSession}`)
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'MT_chat_messages', filter: `session_id=eq.${selectedSession}` },
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mt_chat_messages', filter: `session_id=eq.${selectedSession}` },
         payload => setMessages(prev => [...prev, payload.new as ChatMessage])
       )
       .subscribe();
@@ -30,7 +30,7 @@ export default function AdminChat() {
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
   async function loadSessions() {
-    const { data } = await supabase.from('MT_chat_messages').select('session_id, visitor_name, message, is_read, created_at').order('created_at', { ascending: false });
+    const { data } = await supabase.from('mt_chat_messages').select('session_id, visitor_name, message, is_read, created_at').order('created_at', { ascending: false });
     if (!data) return;
     const map = new Map<string, Session>();
     data.forEach(m => {
@@ -46,9 +46,9 @@ export default function AdminChat() {
   }
 
   async function loadMessages(sid: string) {
-    const { data } = await supabase.from('MT_chat_messages').select('*').eq('session_id', sid).order('created_at', { ascending: true });
+    const { data } = await supabase.from('mt_chat_messages').select('*').eq('session_id', sid).order('created_at', { ascending: true });
     setMessages(data ?? []);
-    await supabase.from('MT_chat_messages').update({ is_read: true }).eq('session_id', sid).eq('sender', 'user');
+    await supabase.from('mt_chat_messages').update({ is_read: true }).eq('session_id', sid).eq('sender', 'user');
     loadSessions();
   }
 
@@ -58,7 +58,7 @@ export default function AdminChat() {
     setSending(true);
     const msg = reply.trim();
     setReply('');
-    await supabase.from('MT_chat_messages').insert({ session_id: selectedSession, visitor_name: 'Admin', sender: 'admin', message: msg, is_read: true });
+    await supabase.from('mt_chat_messages').insert({ session_id: selectedSession, visitor_name: 'Admin', sender: 'admin', message: msg, is_read: true });
     setSending(false);
   }
 

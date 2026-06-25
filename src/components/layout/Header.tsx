@@ -24,10 +24,10 @@ export default function Header() {
   const [announcement, setAnnouncement] = useState('');
 
   useEffect(() => {
-    supabase.from('MT_collections').select('*').eq('is_active', true).order('sort_order').then(({ data }) => {
+    supabase.from('mt_collections').select('*').eq('is_active', true).order('sort_order').then(({ data }) => {
       setCollections(data ?? []);
     });
-    supabase.from('MT_site_settings').select('*').eq('key', 'announcement_bar').maybeSingle().then(({ data }) => {
+    supabase.from('mt_site_settings').select('*').eq('key', 'announcement_bar').maybeSingle().then(({ data }) => {
       if (data) setAnnouncement(lang === 'tc' ? data.value_tc : data.value_en);
     });
   }, [lang]);

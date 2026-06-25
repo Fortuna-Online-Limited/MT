@@ -22,7 +22,7 @@ export default function ProductDetail() {
   useEffect(() => {
     if (!slug) return;
     supabase
-      .from('MT_products')
+      .from('mt_products')
       .select('*, collection:MT_collections(*)')
       .eq('slug', slug)
       .eq('is_active', true)
@@ -31,7 +31,7 @@ export default function ProductDetail() {
         setProduct(data as Product);
         setLoading(false);
         if (data?.collection_id) {
-          supabase.from('MT_products').select('*, collection:MT_collections(*)').eq('collection_id', data.collection_id).eq('is_active', true).neq('id', data.id).limit(4).then(({ data: rel }) => setRelated((rel as Product[]) ?? []));
+          supabase.from('mt_products').select('*, collection:mt_collections(*)').eq('collection_id', data.collection_id).eq('is_active', true).neq('id', data.id).limit(4).then(({ data: rel }) => setRelated((rel as Product[]) ?? []));
         }
       });
   }, [slug]);

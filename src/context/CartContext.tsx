@@ -32,8 +32,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const refreshCart = useCallback(async () => {
     const { data } = await supabase
-      .from('MT_cart_items')
-      .select('*, product:MT_products(*)')
+      .from('mt_cart_items')
+      .select('*, product:mt_products(*)')
       .eq('session_id', sessionId)
       .order('created_at', { ascending: true });
     setItems((data as CartItem[]) ?? []);
@@ -47,24 +47,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     if (existing) {
       await updateQuantity(existing.id, existing.quantity + quantity);
     } else {
-      await supabase.from('MT_cart_items').insert({ session_id: sessionId, product_id: productId, quantity });
+      await supabase.from('mt_cart_items').insert({ session_id: sessionId, product_id: productId, quantity });
       await refreshCart();
     }
   }
 
   async function updateQuantity(itemId: string, quantity: number) {
     if (quantity <= 0) { await removeItem(itemId); return; }
-    await supabase.from('MT_cart_items').update({ quantity }).eq('id', itemId);
+    await supabase.from('mt_cart_items').update({ quantity }).eq('id', itemId);
     await refreshCart();
   }
 
   async function removeItem(itemId: string) {
-    await supabase.from('MT_cart_items').delete().eq('id', itemId);
+    await supabase.from('mt_cart_items').delete().eq('id', itemId);
     await refreshCart();
   }
 
   async function clearCart() {
-    await supabase.from('MT_cart_items').delete().eq('session_id', sessionId);
+    await supabase.from('mt_cart_items').delete().eq('session_id', sessionId);
     setItems([]);
   }
 

@@ -11,7 +11,7 @@ export default function Contact() {
   const [settings, setSettings] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    supabase.from('MT_site_settings').select('key, value_en, value_tc').then(({ data }) => {
+    supabase.from('mt_site_settings').select('key, value_en, value_tc').then(({ data }) => {
       const m: Record<string, string> = {};
       (data ?? []).forEach(s => { m[s.key] = lang === 'tc' ? s.value_tc : s.value_en; });
       setSettings(m);

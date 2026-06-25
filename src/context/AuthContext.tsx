@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function loadProfile(userId: string) {
     const { data } = await supabase
-      .from('MT_customer_profiles')
+      .from('mt_customer_profiles')
       .select('*')
       .eq('id', userId)
       .maybeSingle();
@@ -60,7 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   async function signUp(email: string, password: string, firstName: string, lastName: string) {
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (!error && data.user) {
-      await supabase.from('MT_customer_profiles').insert({
+      await supabase.from('mt_customer_profiles').insert({
         id: data.user.id,
         first_name: firstName,
         last_name: lastName,
