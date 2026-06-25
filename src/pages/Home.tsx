@@ -41,14 +41,14 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[80vh] min-h-[560px] flex items-center overflow-hidden bg-[#c8b99a]">
+      <section className="relative h-[80vh] min-h-[560px] flex items-center overflow-hidden bg-[#c4b47a]">
         <div className="absolute inset-0">
           <img
-            src="/image copy copy.png"
+            src="/sg-11134210-7rd47-lu7d9n427pyx27@resize_ss700x700.jpg"
             alt="MODAMODA Hero"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#8a7a5a]/70 via-[#8a7a5a]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#6b5c30]/60 via-[#6b5c30]/10 to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 w-full">
           <div className="max-w-lg">
